@@ -14,8 +14,8 @@ Nach der Eingabe aller Datenfelder sieht der User in einem letzten Schritt jene 
 Eine Meldung kann von technischer Seite gespeichert werden, wenn sie mindestens Angaben zu den folgenden Datenfeldern enthält:
 * betreibbare Betten *(intensiv_betten)*
 * belegte Betten *(intensiv_betten_belegt)* 
-* covid_genesen
-* covid_verstorben
+* ~~faelleCovidGenesen~~ _[veraltet, nicht mehr implementieren]_
+* ~~faelleCovidVerstorben~~ _[veraltet, nicht mehr implementieren]_
 
 Für die anderen Datenfelder sind auch NULL-Werte zugelassen. Das Speichern der Meldung ist trotzdem möglich. Wenn eines dieser Felder leer gelassen wurde (NULL), sollte es einen Warnhinweis geben. Im Intensivregister Frontend ist der Warnhinweis so implementiert, dass er auf der Meldungszusammenfassungsseite angezeigt wird, wenn ein Datenfeld mit Zahlenwert aus einer vorherigen Meldung auf eine NULLmeldung wechselt. Danach werden keine weiteren Warnhinweise bei späteren Meldungen angezeigt, bis wieder erstmalig ein Datenfeld leer gelassen wird.
 Grundsätzlich besteht eine Meldepflicht entsprechend der jeweils geltenden Verordnung zur Krankenhauskapazitätssurveillance. Alle Datenfelder sind demnach rechtlich verpflichtend für die Meldung, ausgenommen Datenfelder, welche explizit mit dem Label „(optional)“ versehen sind.
@@ -29,11 +29,13 @@ NULL-Werte sind auch hier zugelassen und bedeuten, dass der Anwender nicht um de
 Die Datentypen der gemeldeten Werte müssen mit den Datentypen übereinstimmen, die in der Dokumentation der Schnittstelle (https://www.intensivregister.de/api/public/api-docs-ui) als Schema hinterlegt sind.
 
 ## 4) Notwendige Zahlenintervalle für numerische Eingabewerte
-Die gemeldeten Werte der folgenden Datenfelder müssen ganze Zahlen sein, die größer gleich 0 sind, aber keine obere Grenze haben. Für diese beiden Felder siehe auch Regeln 5H und 5I.
-* faelle_covid_genesen 
-* faelle_covid_verstorben
+_<veraltet, nicht mehr implementieren>_  
+~~Die gemeldeten Werte der folgenden Datenfelder müssen ganze Zahlen sein, die größer gleich 0 sind, aber keine obere Grenze haben. Für diese beiden Felder siehe auch Regeln 5H und 5I.~~
+* ~~faelleCovidGenesen~~
+* ~~faelleCovidVerstorben~~  
+_</veraltet, nicht mehr implementieren>_
 
-Die gemeldeten Werte aller anderer numerischer Datenfelder müssen ganze Zahlen sein in dem Intervall [0,999] (0 und 999 eingeschlossen).
+Die gemeldeten Werte aller (anderer) numerischer Datenfelder müssen ganze Zahlen sein in dem Intervall [0,999] (0 und 999 eingeschlossen).
 
 ## 5) Notwendige Prüfregeln auf Eingabeseite
 Die Prüfregeln sind **immer** aktiv, selbst wenn kein Wert in einem für die Regel relevanten Feld eingegeben wurde. Die Prüfregel **muss** eingehalten werden, um eine Meldung speichern zu können.
@@ -98,32 +100,37 @@ Die Integration der Prüfregeln setzt voraus, dass das Client-System die letzte 
     *Diese Regel prüft „<=“, damit keine Meldungen verloren werden, wenn Meldebereiche einige Altersgruppen nicht angeben können oder möchten. Siehe hierzu auch Regel 6B: nicht speicherverhindernde Warnung bei sum (Alterstrata COVID-19-Fälle) < faelle_covid_aktuell*
 
 * **Regel 5H (Genesene COVID-19-Fälle):**  
-    **5H1** faelle_covid_genesen nur als kumulativ anwachsende Zahl erlaubt;  
-    faelle_covid_genesen (aktuelle Meldung) >= faelle_covid_genesen (letzte Meldung)
+    _[veraltet, nicht mehr implementieren]_  
+    ~~**5H1** faelleCovidGenesen nur als kumulativ anwachsende Zahl erlaubt; 
+    faelleCovidGenesen (aktuelle Meldung) >= faelleCovidGenesen (letzte Meldung)~~
 
-    **5H2** faelle_covid_genesen darf nicht um mehr als 50 pro Meldung ansteigen;  
-    faelle_covid_genesen (aktuelle Meldung) <= 50 + faelle_covid_genesen (letzte Meldung)
+    ~~**5H2** faelleCovidGenesen darf nicht um mehr als 50 pro Meldung ansteigen;  
+    faelleCovidGenesen (aktuelle Meldung) <= 50 + faelleCovidGenesen (letzte Meldung)~~
 
-    Für die Regeln 5H siehe auch Abschnitt 10: Keine Regeln 5H bei Korrektur von Meldungen 
+    ~~Für die Regeln 5H siehe auch Abschnitt 10: Keine Regeln 5H bei Korrektur von Meldungen~~
 
 * **Regel 5I (Verstorbene COVID-19-Fälle):**  
-    **5I1** faelle_covid_verstorben nur als kumulativ anwachsende Zahl erlaubt;  
-    faelle_covid_verstorben (aktuelle Meldung) >= faelle_covid_verstorben (letzte Meldung)
+    _[veraltet, nicht mehr implementieren]_  
+    ~~**5I1** faelleCovidVerstorben nur als kumulativ anwachsende Zahl erlaubt;  
+    faelleCovidVerstorben (aktuelle Meldung) >= faelleCovidVerstorben (letzte Meldung)~~
 
-    **5I2** faelle_covid_verstorben darf nicht um mehr als 50 pro Meldung ansteigen;  
-    faelle_covid_verstorben (aktuelle Meldung) <= 50 + faelle_covid_verstorben (letzte Meldung) 
+    ~~**5I2** faelleCovidVerstorben darf nicht um mehr als 50 pro Meldung ansteigen;  
+    faelleCovidVerstorben (aktuelle Meldung) <= 50 + faelleCovidVerstorben (letzte Meldung)~~ 
 
-    Für die Regeln 5I siehe auch Abschnitt 10: Keine Regeln 5I bei Korrektur von Meldungen
+    ~~Für die Regeln 5I siehe auch Abschnitt 10: Keine Regeln 5I bei Korrektur von Meldungen~~
     
 * **Regel 5J (Beziehung COVID-19-Patient\*innen <-> SARS-CoV-2-Virusvarianten):**  
     **5J1** sum(SARS-CoV-2-Virusvarianten-Gruppen) <= faelle_covid_aktuell  
     *Diese Regel prüft „<=“, damit keine Meldungen verloren werden, wenn Meldebereiche keine Angaben zu VOCs machen.*
     
-* **Regel 5K (Neuaufnahmen COVID-19-Patient\*innen):**  
-    **5K1** Wenn die betreffende Meldung die erste Meldung des Kalendertages (0:00:00 - 23:59:59 Uhr) ist, erfolgt keine automatische Vorausfüll-Funktionalität bei dem Datenfeld Neuaufnahmen. Falls am gleichen Kalendertag schon eine Meldung für den Meldebereich abgegeben wurde, wird der Wert der Neuaufnahmen der letzten vorherigen Meldung des Tages vorausgefüllt (siehe auch Abschnitt 9, Ausnahmen).
+* **Regel 5K (Neuaufnahmen und Abgänge COVID-19-Patient\*innen):**  
+    **5K1** Wenn die betreffende Meldung die erste Meldung des Kalendertages (0:00:00 - 23:59:59 Uhr) ist, erfolgt keine automatische Vorausfüll-Funktionalität bei dem Datenfeldern Neuaufnahmen und Abgaenge. Falls am gleichen Kalendertag schon eine Meldung für den Meldebereich abgegeben wurde, wird der Wert der Neuaufnahmen und Abgaenge der letzten vorherigen Meldung des Tages vorausgefüllt (siehe auch Abschnitt 9, Ausnahmen).
 
     **5K2** (intensiv_betten * 2) +10 >
-    (faelle_covid_vortag_erstaufnahmen <del>+ faelle_covid_vortag_verlegungen</del>)
+    (neuaufnahmen.erstaufnahmen <del>+ neuaufnahmen.verlegungen</del>)
+  
+    **5K3** (intensiv_betten * 2) +10 >
+    (abgaenge.genesen + abgaenge.verstorben)
     
 * **Regel 5L (Schwangere COVID-19-Patient\*innen):**  
     **5L1** Die Abfrage zu Schwangeren soll nur für Meldebereiche angezeigt werden, die als  Behandlungsschwerpunkt „Erwachsene“ angegeben haben oder den Behandlungsschwerpunkt nicht angegeben haben („NA“) 
@@ -213,16 +220,20 @@ Auch im Korrektur-Modus einer schon erfolgten Meldung ist ein Vorausfüllen mög
 * impfstatus_2_impfungen
 * impfstatus_3_impfungen
 * impfstatus_4+_impfungen
+* abgaenge.genesen
+* abgaenge.verstorben
 
 ## 10) Funktionalität: Nachträgliche Werte-Korrektur von erfassten Meldungen
 Eine Meldung kann rückwirkend bis zu 14 Tage nach der initialen Erfassung der Meldung von allen Meldenden eines Meldebereichs korrigiert werden.
 Im Frontend des Intensivregisters ist die Korrekturfunktionalität zu finden unter dem Menüpunkt "Mein Krankenhaus-Standort/ Mein Meldebereich:/ Meldungshistorie des Meldebereichs (korrigierbar)".
 
-Prüfregeln (siehe Punkt 5), die bei der Korrektur-Anwendung **nicht** mehr in obiger Form gelten:
-* **Regeln 5H (Genesene COVID-19-Fälle)** werden relaxiert:
-    Einträge, die nicht den Regeln 5H1 oder 5H2 entsprechen, sind erlaubt: Die Werte können kleiner werden bzw. um mehr als 50 ansteigen.
+_<veraltet, nicht mehr implementieren>_  
+~~Prüfregeln (siehe Punkt 5), die bei der Korrektur-Anwendung **nicht** mehr in obiger Form gelten:~~
+* ~~**Regeln 5H (Genesene COVID-19-Fälle)** werden relaxiert:
+    Einträge, die nicht den Regeln 5H1 oder 5H2 entsprechen, sind erlaubt: Die Werte können kleiner werden bzw. um mehr als 50 ansteigen.~~
 
-* **Regeln 5I (Verstorbene COVID-19-Fälle)** werden relaxiert:
-    Einträge, die nicht den Regeln 5I1 oder 5I2 entsprechen, sind erlaubt: Die Werte können kleiner werden bzw. um mehr als 50 ansteigen.
+* ~~**Regeln 5I (Verstorbene COVID-19-Fälle)** werden relaxiert:
+    Einträge, die nicht den Regeln 5I1 oder 5I2 entsprechen, sind erlaubt: Die Werte können kleiner werden bzw. um mehr als 50 ansteigen.~~  
+_</veraltet, nicht mehr implementieren>_
 
 
