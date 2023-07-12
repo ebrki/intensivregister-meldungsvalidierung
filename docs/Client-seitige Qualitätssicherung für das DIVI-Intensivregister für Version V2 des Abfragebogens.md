@@ -130,7 +130,7 @@ Die Integration der Prüfregeln setzt voraus, dass das Client-System die letzte 
     (neuaufnahmen.erstaufnahmen <del>+ neuaufnahmen.verlegungen</del>)
   
     **5K3** (intensiv_betten * 2) +10 >
-    (abgaenge.genesen + abgaenge.verstorben)
+    (abgaenge.verlegt + abgaenge.verstorben)
     
 * **Regel 5L (Schwangere COVID-19-Patient\*innen):**  
     **5L1** Die Abfrage zu Schwangeren soll nur für Meldebereiche angezeigt werden, die als  Behandlungsschwerpunkt „Erwachsene“ angegeben haben oder den Behandlungsschwerpunkt nicht angegeben haben („NA“) 
@@ -220,7 +220,7 @@ Auch im Korrektur-Modus einer schon erfolgten Meldung ist ein Vorausfüllen mög
 * impfstatus_2_impfungen
 * impfstatus_3_impfungen
 * impfstatus_4+_impfungen
-* abgaenge.genesen
+* abgaenge.verlegt
 * abgaenge.verstorben
 
 ## 10) Funktionalität: Nachträgliche Werte-Korrektur von erfassten Meldungen
